@@ -9,9 +9,9 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from download_nltk import download_nltk_resources
 
-# Point NLTK to the local folder
-nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
+download_nltk_resources()
 
 class SentimentAnalyzer:
     def __init__(self):
