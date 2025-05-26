@@ -13,3 +13,8 @@ This is a simple sentiment analysis chatbot built with Python, Streamlit, and sc
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+## Interface
+Screenshot uploaded of local host
+
+
+
