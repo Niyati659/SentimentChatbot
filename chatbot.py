@@ -5,7 +5,7 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv("SentimentalAnaylser/twitter_training.csv", encoding="latin-1", header=None)
+df = pd.read_csv("twitter_training.csv", encoding="latin-1", header=None)
 df.columns = ['ID', 'Entity', 'Label', 'Text']
 print(df.head())
 new_df = df[["Label", "Text"]].dropna()
@@ -69,10 +69,8 @@ class SentimentAnalyzer:
         return prepared_df
 
     def train(self, X_train, y_train):
-        print("Vectorizing text...")
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
 
-        print("Training classifier...")
         self.classifier.fit(X_train_vectorized, y_train)
 
     def evaluate(self, X_test, y_test):
@@ -96,12 +94,10 @@ class SentimentAnalyzer:
 
 def main():
     analyzer = SentimentAnalyzer()
-    
-    print("Original Label values in dataset:", new_df['Label'].unique())
+ 
     
     prepared_df = analyzer.prepare_data(new_df)
 
-    print("\nLabel distribution after preprocessing:")
     print(prepared_df['Label'].value_counts())
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -126,6 +122,19 @@ def main():
     for text, pred in zip(new_texts, predictions):
         print(f"Text: {text}")
         print(f"Prediction: {pred}\n")
+
+    # *** User input loop for interactive predictions ***
+    print("Enter your own text to get sentiment prediction (type 'exit' to quit):")
+    while True:
+        user_input = input("Your text: ").strip()
+        if user_input.lower() == 'exit':
+            print("Exiting...")
+            break
+        if user_input == '':
+            print("Please enter some text or 'exit' to quit.")
+            continue
+        prediction = analyzer.predict([user_input])[0]
+        print(f"Prediction: {prediction}\n")
 
 if __name__ == "__main__":
     main()
