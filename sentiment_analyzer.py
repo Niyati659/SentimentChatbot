@@ -4,7 +4,9 @@ import string
 
 import os
 import nltk
-nltk.data.path.append("nltk_data")  # ensure NLTK uses your bundled data
+nltk.data.path.append("nltk_data") 
+import nltk
+nltk.download('punkt')
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords

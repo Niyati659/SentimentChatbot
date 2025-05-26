@@ -6,6 +6,8 @@ import nltk
 nltk.data.path.append("nltk_data") 
 import nltk
 print(nltk.data.find("tokenizers/punkt")) # ensure NLTK uses your bundled data
+import nltk
+nltk.download('punkt')
 @st.cache_resource
 def load_analyzer():
     analyzer = SentimentAnalyzer()
