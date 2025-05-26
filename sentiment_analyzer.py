@@ -1,17 +1,17 @@
 import pandas as pd
 import re
 import string
-import nltk
+
 import os
+import nltk
+nltk.data.path.append("nltk_data")  # ensure NLTK uses your bundled data
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from download_nltk import download_nltk_resources
 
-download_nltk_resources()
 
 class SentimentAnalyzer:
     def __init__(self):
