@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sentiment_analyzer import SentimentAnalyzer
+import os
 
 @st.cache_resource
 def load_analyzer():
@@ -10,18 +10,18 @@ def load_analyzer():
     df.columns = ['ID', 'Entity', 'Label', 'Text']
     new_df = df[["Label", "Text"]].dropna()
     prepared_df = analyzer.prepare_data(new_df)
-    X_train, _, y_train, _ = train_test_split(
-        prepared_df['processed_text'], prepared_df['Label'], test_size=0.2, random_state=42, stratify=prepared_df['Label']
-    )
-    analyzer.train(X_train, y_train)
+
+    X = prepared_df['processed_text']
+    y = prepared_df['Label']
+    analyzer.train(X, y)
     return analyzer
 
-st.title("🧠 Sentiment Analysis Chatbot")
+st.title("💬 Sentiment Chatbot")
 
 analyzer = load_analyzer()
 
-text_input = st.text_input("Enter a sentence to analyze:")
+user_input = st.text_input("Enter your message:")
 
-if text_input:
-    prediction = analyzer.predict([text_input])[0]
-    st.success(f"Predicted Sentiment: **{prediction}**")
+if user_input:
+    prediction = analyzer.predict([user_input])[0]
+    st.markdown(f"**Sentiment:** `{prediction}`")
